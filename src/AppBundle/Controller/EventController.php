@@ -17,8 +17,8 @@ class EventController extends Controller
      */
     public function indexAction()
     {
-        $events = $this->getDoctrine()->getRepository("AppBundle:User")->findAll();
-        return $this->render('AppBundle:User:index.html.twig', array(
+        $events = $this->getDoctrine()->getRepository("AppBundle:Event")->findAll();
+        return $this->render('AppBundle:Event:index.html.twig', array(
             'events' => $events
         ));
     }
@@ -31,13 +31,13 @@ class EventController extends Controller
         $event = new Event;
         $form = $this->createFormBuilder($event)
             ->add('name',TextType::class, array(
-                "label" => "User name",
+                "label" => "Event name",
                 "attr" => array(
                     'class' => 'form-control'
                 )
             ))
             ->add('place',EntityType::class, array(
-                "class" =>"AppBundle:Rool",
+                "class" =>"AppBundle:Place",
                 "choice_label" => "name",
                 "attr" => array(
                     'class' => 'form-control'
@@ -61,7 +61,7 @@ class EventController extends Controller
 
             return $this->redirectToRoute("events_list");
         }
-        return $this->render('AppBundle:User:create.html.twig', array(
+        return $this->render('AppBundle:Event:create.html.twig', array(
             'form' => $form->createView()
         ));
     }
@@ -71,16 +71,16 @@ class EventController extends Controller
      */
     public function editAction($id, Request $request)
     {
-        $event=$this->getDoctrine()->getRepository("AppBundle:User")->find($id);
+        $event=$this->getDoctrine()->getRepository("AppBundle:Event")->find($id);
         $form=$this->createFormBuilder($event)
             ->add('name',TextType::class, array(
-                "label" => "User name",
+                "label" => "Event name",
                 "attr" => array(
                     'class' => 'form-control'
                 )
             ))
             ->add('place',EntityType::class, array(
-                "class" =>"AppBundle:Rool",
+                "class" =>"AppBundle:Place",
                 "choice_label" => "name",
                 "attr" => array(
                     'class' => 'form-control'
@@ -107,7 +107,7 @@ class EventController extends Controller
 
             return $this->redirectToRoute("events_list");
         }
-        return $this->render('AppBundle:User:edit.html.twig', array(
+        return $this->render('AppBundle:Event:edit.html.twig', array(
             'form' => $form->createView()
         ));
     }
@@ -117,7 +117,7 @@ class EventController extends Controller
      */
     public function deleteAction($id)
     {
-        $event = $this->getDoctrine()->getRepository("AppBundle:User")->find($id);
+        $event = $this->getDoctrine()->getRepository("AppBundle:Event")->find($id);
         $em = $this->getDoctrine()->getManager();
         $em->remove($event);
         $em->flush();

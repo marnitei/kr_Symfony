@@ -1,0 +1,28 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}Reques{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <h1>Reques</h1>
+        <table class="table table-responsive ">
+            <thead>
+                <th>Name</th>
+                <th>Category</th>
+            </thead>
+            <tbody>
+            {% for reque in reques %}
+                <tr>
+                    <td>{{ reque.name }}</td>
+                    <td>{{raque.category.name }}</td>
+                    <td>
+                        <a href="reques/edit/{{ reque.id }}" class="btn btn-primary">Edit</a>
+                        <a href="reques/delete/{{ reque.id }}" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <a href="{{ path('app_reque_create') }}" class="btn btn-success">Add reque</a>
+    </div>
+{% endblock %}
